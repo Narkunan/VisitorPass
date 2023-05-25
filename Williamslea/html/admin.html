@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="">
+		body{
+		background-color:black;
+		color:white;
+	}
+#buttons{
+	position:absolute;
+	height: 50px;
+	width:150px;
+	left:40%;
+	top:20%;
+	font-size: 25px;
+	color:white;
+	background-color: black;
+}
+#adminbutton{
+	position:absolute;
+	height: 50px;
+	width:150px;
+	left:50%;
+	top:20%;
+	
+	font-size: 25px;
+}
+#form{
+	position: absolute;
+	top:30%;
+	width: 100%;
+  padding: 12px 20px;
+  display: inline-block;
+  box-sizing: border-box;
+  left: 0%;
+}
+input{
+	height:10%;
+	width:20%;
+}
+</style>
+<title> williams lea</title>
+</head>
+<body>
+<center>
+	<img src="../images/williamslea.png">
+</center>
+<center>
+<a href='index.html'><button id="buttons">Visitor</button></a>
+<a href='admin.html'><button id="adminbutton">Admin</button></a>
+</center>
+<center id="form">
+<form action="../php/getdetails.php" method="post">
+<label>UserName</label>
+<input type="text" name="aname">
+<br><br><br>
+<label>PassWord</label>
+<input type="password" name="apass">
+<br><br><br>  
+<input type="submit" name="submit" value="Login">
+</form>
+</center>
+</body>
+</html>
