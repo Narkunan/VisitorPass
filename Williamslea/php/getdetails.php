@@ -1,33 +1,98 @@
-<?php 
-class admin {
-    public function checkConnection() {
-        try {
-            $host = 'localhost:3306'; // host name
-            $username = 'root'; // username
-            $pass = ''; // password
-            $dbname = 'williamsleavpass'; // dbname
+<?php
+try{
+require("trial.php");
+require("decrypt.php");
+}
+catch(Exception $e){
+    echo "problem with getting file";
+}
+$aname=$_POST['aname'];
+$apass=$_POST['apass'];
+$obj=new temp();
+class admin { 
+public function checkempty(){
+    global $aname,$apass,$obj;
+    echo $aname,$apass;
+if(empty($aname)==false && empty($apass)==false){
+    $this->connectioncheck();
+   }
+   else {
+    echo "<h1><a href='../html/admin.html'>Go Back</a><h1>";
+   }
+}
+   
+public function connectioncheck(){
+    try{
+  global $obj;
+$conn=$obj->checkconnection();
+if($conn){
+    
+   
+    $this->checkadminaccess($conn);
+}
+}
+catch (PDOException $e){
+    echo "encountered problem with connection";
+}
+}
+public function checkadminaccess($conn){
+    global $aname,$apass;
+    $checkstatus;
+    try{
+    $sql="select * from admin";
+    $resultquery=mysqli_query($conn,$sql);
+    if(mysqli_num_rows($resultquery)>0){
+        while($row=mysqli_fetch_assoc($resultquery)){
+            if($aname==$row['username']&&$apass==$row['pass']){
+                $checkstatus=true;
 
-            if (empty($_POST['aname'])==false && empty($_POST['apass'])==false) {
-                $aname = $_POST['aname']; // request admin name
-                $apass = $_POST['apass']; // request admin pass
+            }
 
-                $conn = mysqli_connect($host, $username, $pass, $dbname); // establishing connection
+        }
+    }
+    if($checkstatus==true){
+        $this->getreport($conn);
+    }
+    else{
+        echo "cannot fetch details";
+    }
+}
+catch(PDOException $e){
+    echo "cannot run query";
+}
+}
+public function getreport($conn){
+     
+      try{
+        $dobj=new decrypt();
+    $sql="select * from visitor";
+    $resultquery=mysqli_query($conn,$sql);
+   
+    if(mysqli_num_rows($resultquery)>0){
 
-                if (!$conn) {
-                    throw new Exception("Problem with connect"); // throw exception if there is a problem with the connection
-                }
-
-                $insertQuery = "SELECT * FROM admin";
-                $retrievalQuery = mysqli_query($conn, $insertQuery);
-
-                if (mysqli_num_rows($retrievalQuery) > 0) {
-                    while ($row = mysqli_fetch_assoc($retrievalQuery)) {
-                        if ($row['username'] == $aname && $row['pass'] == $apass) {
-                            $selectQuery = "SELECT * FROM visitor";
-                            $resultQuery = mysqli_query($conn, $selectQuery);
-
-                            if (mysqli_num_rows($resultQuery) > 0) {
-                                echo "<table border='1'>
+         echo "<html>
+         <head>
+         <title>getdetails</title>
+         <style>
+         table{
+            background-color:black;
+            color:white;
+         }
+         body{
+            background-color:black;
+            color:white;
+         }
+         button{
+          background-color:black;
+            color:white;  
+            height:150px;
+            width:100px;
+            font-size:25px;
+         }
+         </style>
+         </head>
+         <body>
+         <center> <table border='1' >
                                         <tr>
                                             <th>Visitor name</th>
                                             <th>Visitor contact</th>
@@ -35,36 +100,31 @@ class admin {
                                             <th>ID card type</th>
                                             <th>ID card No</th>
                                         </tr>";
-
-                                while ($row = mysqli_fetch_assoc($resultQuery)) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row['Vname'] . "</td>";
-                                    echo "<td>" . $row['contact'] . "</td>";
-                                    echo "<td>" . $row['purpose'] . "</td>";
-                                    echo "<td>" . $row['id_card_type'] . "</td>";
-                                    echo "<td>" . $row['id_card'] . "</td>";
+        while($row=mysqli_fetch_assoc($resultquery)){
+            $decryptname=$dobj->decryptname(strval($row['Vname']));
+            $decryptcontact=$dobj->decryptcontact(strval($row['contact']));
+            $decryptpurpose=$dobj->decryptpurpose(strval($row['purpose']));
+            $decryptidcard=$dobj->decryptidcard(strval($row['id_card_type']));
+            $decryptidcardno=$dobj->decryptidcardno(strval($row['id_card']));
+            echo "<tr>";
+                                    echo "<td>" . $decryptname . "</td>";
+                                    echo "<td>" . $decryptcontact. "</td>";
+                                    echo "<td>" . $decryptpurpose. "</td>";
+                                    echo "<td>" .  $decryptidcard. "</td>";
+                                    echo "<td>" . $decryptidcardno . "</td>";
                                     echo "</tr>";
-                                }
 
-                                echo "</table>";
-                            }
-                        }
-                    }
-                } else {
-                    throw new Exception("Data not posted");
-                }
-            } else {
-                echo 'some values are missing';
-                throw new Exception("Some values are missing");
-            }
-        } catch (Exception $e) {
-            echo "<h1>" . $e->getMessage() . "</h1>";
         }
-
-        echo "<h1><a href='admin.html'>Go back</a></h1>";
+        echo "</table></center></body></html>";
+        echo "<center><a href='../html/admin.html'><button >goback</button></a></center>";
     }
+    
 }
-
-$obj = new admin();
-$obj->checkConnection();
+catch(PDOException $e){
+    echo "cannot run query";
+}
+}
+}
+$adminobj=new admin();
+$adminobj->connectioncheck();
 ?>
