@@ -7,12 +7,12 @@ catch(FileNotFoundException $e){
 }
 class generators{
 	public function generatepdf($Vname,$Vcontact,$Vpurpose,$Vidcard,$Vidno,$entrydate){
-$name="Name: ".$Vname;
-$contact="contact: ".$Vcontact;
-$purpose="Purpose: ".$Vpurpose;
-$ID_Card="Id Card: ".$Vidcard;
-$ID_CARDNO="Id Card No: ".$Vidno;
-$dateday="Entry Date:".$entrydate;
+$name="Name:   ".$Vname;
+$contact="Contact:   ".$Vcontact;
+$purpose="Purpose:   ".$Vpurpose;
+$ID_Card="Id Card:   ".$Vidcard;
+$ID_CARDNO="Id Card No:   ".$Vidno;
+$dateday="Entry Date:   ".$entrydate;
 // New object created and constructor invoked
 $pdf = new FPDF();
 $pdf->AddPage();

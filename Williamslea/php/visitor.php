@@ -21,7 +21,20 @@ if(empty($vname)==false && empty($vcontact)==false && empty($vpurpose)==false &&
     $this->connectioncheck();
    }
    else {
-    echo "<h1><a href='../html/index.html'>Go Back</a><h1>";
+echo "<html><head><title>getdetails</title><style>body{
+background-color:black;
+color:white;
+    }
+    button{
+        background-color:black;
+        color:white;
+        font-size:25px;
+    }
+    </style>
+    </head>
+    <body>
+        <center><h1>Some Fields are Missing</h1><br><a href='../html/index.html'><button>Go Back</button></a></center></body></html>";
+   
    }
 }
    
@@ -41,11 +54,11 @@ catch (PDOException $e){
 public function execute_query($conn){
  try{
     global $vname,$vcontact,$vpurpose,$vidcard,$vidcardno,$obj,$obj1;
-    $vnameencrypt=$obj->vnameencrypt($vname);
+    $vnameencrypt=$obj->encrypt($vname,2);
   $vcontactencrypt=$obj->vcontactencrypt($vcontact);
-    $vpurposeencrypt=$obj->vpurposeencrypt($vpurpose);
-    $vidcardencrypt=$obj->vidcardencrypt($vidcard);
-    $vidcardnoencrypt=$obj->vidcardnoencrypt($vidcardno);
+    $vpurposeencrypt=$obj->encrypt($vpurpose,3);
+    $vidcardencrypt=$obj->encrypt($vidcard,4);
+    $vidcardnoencrypt=$obj->encryptcardno($vidcardno,5);
     date_default_timezone_set("Asia/Calcutta");
     $dateofthe=date("Y-m-d h:i:sa");
     $sqlquery="INSERT INTO visitor values('$vnameencrypt','$vcontactencrypt','$vpurposeencrypt','$vidcardencrypt','$vidcardnoencrypt','$dateofthe')";

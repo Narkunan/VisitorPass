@@ -1,7 +1,6 @@
 <?php
 try{
 require("trial.php");
-require("decrypt.php");
 }
 catch(Exception $e){
     echo "problem with getting file";
@@ -12,12 +11,24 @@ $obj=new temp();
 class admin { 
 public function checkempty(){
     global $aname,$apass,$obj;
-    echo $aname,$apass;
+    
 if(empty($aname)==false && empty($apass)==false){
     $this->connectioncheck();
    }
    else {
-    echo "<h1><a href='../html/admin.html'>Go Back</a><h1>";
+    echo "<html><head><title>getdetails</title><style>body{
+background-color:black;
+color:white;
+    }
+    button{
+        background-color:black;
+        color:white;
+        font-size:25px;
+    }
+    </style>
+    </head>
+    <body>
+        <center><h1>Some Fields are Missing</h1><br><a href='../html/admin.html'><button>Go Back</button></a></center></body></html>";
    }
 }
    
@@ -62,9 +73,9 @@ catch(PDOException $e){
 }
 }
 public function getreport($conn){
-     
+  global $obj;   
       try{
-        $dobj=new decrypt();
+        
     $sql="select * from visitor";
     $resultquery=mysqli_query($conn,$sql);
    
@@ -99,19 +110,21 @@ public function getreport($conn){
                                             <th>Purpose</th>
                                             <th>ID card type</th>
                                             <th>ID card No</th>
+                                            <th>Entry Date</th>
                                         </tr>";
         while($row=mysqli_fetch_assoc($resultquery)){
-            $decryptname=$dobj->decryptname(strval($row['Vname']));
-            $decryptcontact=$dobj->decryptcontact(strval($row['contact']));
-            $decryptpurpose=$dobj->decryptpurpose(strval($row['purpose']));
-            $decryptidcard=$dobj->decryptidcard(strval($row['id_card_type']));
-            $decryptidcardno=$dobj->decryptidcardno(strval($row['id_card']));
+            $decryptname=$obj->decrypt(strval($row['Vname']),2);
+            $decryptcontact=$obj->decryptcontact(strval($row['contact']));
+            $decryptpurpose=$obj->decrypt(strval($row['purpose']),3);
+            $decryptidcard=$obj->decrypt(strval($row['id_card_type']),4);
+            $decryptidcardno=$obj->decryptcardno(strval($row['id_card']),5);
             echo "<tr>";
                                     echo "<td>" . $decryptname . "</td>";
                                     echo "<td>" . $decryptcontact. "</td>";
                                     echo "<td>" . $decryptpurpose. "</td>";
                                     echo "<td>" .  $decryptidcard. "</td>";
                                     echo "<td>" . $decryptidcardno . "</td>";
+                                     echo "<td>" . $row['entrydate'] . "</td>";
                                     echo "</tr>";
 
         }
@@ -126,5 +139,5 @@ catch(PDOException $e){
 }
 }
 $adminobj=new admin();
-$adminobj->connectioncheck();
+$adminobj->checkempty();
 ?>
