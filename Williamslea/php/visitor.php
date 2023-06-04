@@ -1,82 +1,108 @@
 <?php
-try{
-require ("trial.php");
-require("pdfgenerator.php");
+try
+{
+ require ("ende.php");
+ require("pdfgenerator.php");
 }
-catch(FileNotFoundException $e){
-    echo "problem with getting required file";
+catch(FileNotFoundException $e)
+{
+  echo "problem with getting required file";
 }
-$vname=$_POST['name'];
-$vcontact=$_POST['Vcontact'];
-$vpurpose=$_POST['Vpurpose'];
-$vidcard=$_POST['Vidcard'];
-$vidcardno=$_POST['vidno'];
-$obj=new temp(); 
-$obj1=new generators();
-class visitor{
+$v_name=$_POST['name'];
+$v_contact=$_POST['Vcontact'];
+$v_purpose=$_POST['Vpurpose'];
+$v_idcard=$_POST['Vidcard'];
+$v_idcard_no=$_POST['vidno'];
+$obj=new Temp(); 
+$obj1=new Generators();
+class Visitor
+{
    
-   public function checkempty(){
-    global $vname,$vcontact,$vpurpose,$vidcard,$vidcardno,$obj;
-if(empty($vname)==false && empty($vcontact)==false && empty($vpurpose)==false && empty($vidcard)==false && empty($vidcardno)==false){
-    $this->connectioncheck();
-   }
-   else {
-echo "<html><head><title>getdetails</title><style>body{
-background-color:black;
-color:white;
+   public function checkEmpty()
+   {
+    global $v_name,$v_contact,$v_purpose,$v_idcard,$v_idcard_no,$obj;
+    if(empty($v_name)==false && empty($v_contact)==false && empty($v_purpose)==false && empty($v_idcard)==false && empty($v_idcard_no)==false)
+    {
+       $this->connectionCheck();
     }
-    button{
-        background-color:black;
-        color:white;
-        font-size:25px;
+    else 
+    {
+       echo "<html>
+       <head>
+       <title>getdetails</title>
+       <style>
+       body{
+       background-color:black;
+       color:white;
+       }
+       button{
+       background-color:black;
+       color:white;
+       font-size:25px;
+       }
+       </style>
+       </head>
+       <body>
+       <center>
+       <h1>Some Fields are Missing</h1>
+       <br>
+       <a href='../html/index.html'><button>Go Back</button></a>
+       </center>
+       </body>
+       </html>";
+   
+     }
     }
-    </style>
-    </head>
-    <body>
-        <center><h1>Some Fields are Missing</h1><br><a href='../html/index.html'><button>Go Back</button></a></center></body></html>";
    
-   }
-}
-   
-public function connectioncheck(){
-    try{
-  global $obj;
-$conn=$obj->checkconnection();
-if($conn){
+public function connectionCheck()
+{
+try
+{
+   global $obj;
+   $conn=$obj->checkConnection();
+   if($conn)
+   {
     
-    $this->execute_query($conn);
-}
-}
-catch (PDOException $e){
+    $this->executeQuery($conn);
+   }
+ }
+ catch (PDOException $e)
+ {
     echo "encountered problem with connection";
+  }
 }
-}
-public function execute_query($conn){
- try{
-    global $vname,$vcontact,$vpurpose,$vidcard,$vidcardno,$obj,$obj1;
-    $vnameencrypt=$obj->encrypt($vname,2);
-  $vcontactencrypt=$obj->vcontactencrypt($vcontact);
-    $vpurposeencrypt=$obj->encrypt($vpurpose,3);
-    $vidcardencrypt=$obj->encrypt($vidcard,4);
-    $vidcardnoencrypt=$obj->encryptcardno($vidcardno,5);
+public function executeQuery($conn)
+{
+ try
+ {
+    global $v_name,$v_contact,$v_purpose,$v_idcard,$v_idcard_no,$obj,$obj1;
+    $vnameencrypt=$obj->encrypt($v_name,2);
+    $vcontactencrypt=$obj->vContactEncrypt($v_contact);
+    $vpurposeencrypt=$obj->encrypt($v_purpose,3);
+    $vidcardencrypt=$obj->encrypt($v_idcard,4);
+    $vidcardnoencrypt=$obj->encryptCardNo($v_idcard_no,5);
     date_default_timezone_set("Asia/Calcutta");
     $dateofthe=date("Y-m-d h:i:sa");
     $sqlquery="INSERT INTO visitor values('$vnameencrypt','$vcontactencrypt','$vpurposeencrypt','$vidcardencrypt','$vidcardnoencrypt','$dateofthe')";
     $result=mysqli_query($conn,$sqlquery);
-    if($result){
-        try{
-        $obj1->generatepdf($vname,$vcontact,$vpurpose,$vidcard,$vidcardno,$dateofthe);
-}
-catch(Exception $e){
-    echo "problem with generatepdf";
+    if($result)
+    {
+       try
+       {
+        $obj1->generatePdf($v_name,$v_contact,$v_purpose,$v_idcard,$v_idcard_no,$dateofthe);
+       }
+       catch(Exception $e)
+       {
+       echo "problem with generatepdf";
+       }
     }
-}
-}
-catch(Exception $e){
+  } 
+  catch(Exception $e)
+  {
     echo "problem with posting data";
+  }
+ }
 }
-}
-}
-$vobject=new visitor();
-$vobject->checkempty();
+$vobject=new Visitor();
+$vobject->checkEmpty();
 ?>
