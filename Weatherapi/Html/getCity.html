@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style >
+		body
+		{
+			background-color: black;
+		}
+		input
+		{
+			top:30%;
+			padding: 15px 30px;
+			position: absolute;
+		}
+		#submitbutton
+		{
+          height: 60px;
+         left:57.9%;
+         background-color: purple;
+         color:white;
+         
+		}
+		#inputtext
+		{
+		 font-size: 20px;
+		 color:purple;
+		 left:30%;
+         width:300px;
+         height: 25px;
+		}
+		#homepage
+		{
+			top:60%;
+			position:absolute;
+			background-color:purple;
+			color:white;
+			padding: 15px 20px;
+		}
+	</style>
+	<title>getCity</title>
+</head>
+<body>
+	<center>
+	<form action="../php/getCity.php" method="Get">
+		<input type="text" name="pincode" id="inputtext" placeholder="enter pincode" minlength="2">
+		<input type="submit" value="GetCity" id="submitbutton">
+	</form>
+	<a href="index.html"><button id="homepage">Go Back</button>
+    </center>
+</body>
+</html>
