@@ -2,7 +2,8 @@
 
 class DisplayContent
 {
-	public function printCityorPincode($city)
+
+	public function printCityorPincode(String $city):string
 	{
 		
 		$printstring= "
@@ -36,18 +37,20 @@ class DisplayContent
 		<body bgcolor='black'>
 		<center>
 		<div id='citys'>$city</div>
-		<br><br><br><br><a href='../html/getPincode.html'><button id='pincode'>Go Back</button></a>
+		<br><br><br><br><a href='../../view/html/getPincode.html'><button id='pincode'>Go Back</button></a>
 		</center>
 		</body>
 		</html>";
 
 
-     return $printstring;
+     	return $printstring;
 
 	}
-	public function printWeather($weatherDesc,$feelsLike,$tempMax,$tempMin,$imageloaction,$windSpeed)
+
+	public function printWeather(string $weatherDesc,string $feelsLike,string $tempMax,string $tempMin,string $imageloaction,string $windSpeed):string
 	{
-		echo "
+		
+		$printstring= "
 		<html>
 		<head>
 		<title>Display Weather</title>
@@ -153,21 +156,20 @@ class DisplayContent
 		
 		<img src=$imageloaction id='weatherdescimg'>
 		<div id='weatherDesc'>$weatherDesc</div>
-        <img src='../images/feelslike.png' id='feelsLikeimg'>
+        <img src='../../View/images/feelslike.png' id='feelsLikeimg'>
         <div id='feelsLike'>$feelsLike</div>
-        <img src='../images/tempmax.png' id='tempMaximg'>
+        <img src='../../View/images/tempmax.png' id='tempMaximg'>
         <div id='tempMax'>$tempMax</div>
-        <img src='../images/tempmin.png' id='tempMinimg'>
+        <img src='../../View/images/tempmin.png' id='tempMinimg'>
         <div id='tempMin'>$tempMin</div>
-        <img src='../images/wind.png' id='windSpeedimg'>
+        <img src='../../View/images/wind.png' id='windSpeedimg'>
         <div id='windSpeed'>$windSpeed</div>
 		</center>
-		<a href='../html/weather.html'><button id='homepage'>Goback</button></a>
+		<a href='../../View/Html/weather.html'><button id='homepage'>Goback</button></a>
 		</body>
 		</html>";
+		return $printstring;
 		
 	}
 
 }
-
-?>
