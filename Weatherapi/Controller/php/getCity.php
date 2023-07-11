@@ -16,17 +16,14 @@ class GetCity
    * Get Response from api by calling the object of API class.
    * 
    * Call the getResponseCity() function.
-   *  
-   * And then.
    * 
    * Call the parsejson function.
    *  
+   * @param $jsonarray.
    * 
-   * @param $jsonarray
+   * @param $pincode.
    * 
-   * @param $pincode
-   * 
-   * @return void
+   * @return void.
    */
 	public function callApi(string $pincode,Api $obj):void
 	{
@@ -38,13 +35,13 @@ class GetCity
 	}
 
    /**
-   * This function is for parse json 
+   * This function is for parse json.
    * 
-   * Call the printcity or pincode to print city data
+   * Call the printcity or pincode to print city data.
    * 
-   * @param $jsonarray jsonarray from getresponsepincode() function
+   * @param $jsonarray .
    * 
-   * @var $city store city of the given pincode 
+   * @var $city .
    * 
    */
 
