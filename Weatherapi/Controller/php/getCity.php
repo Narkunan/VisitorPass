@@ -5,26 +5,30 @@ require_once("global.php");
 require_once("../../Model/Php/DisplayContent.php");
 
 $pincode=$_GET['pincode'];
-
+/**
+* This class is responsible for getting city info.
+*
+*/
 
 class GetCity
 {
    /**
-   * Get Response from api by calling the object of API class
+   * Get Response from api by calling the object of API class.
    * 
-   * Call the getResponseCity() function
+   * Call the getResponseCity() function.
    *  
-   * And then
+   * And then.
    * 
-   * Call the parsejson function 
+   * Call the parsejson function.
    *  
    * 
-   * @param $jsonarray response from API
+   * @param $jsonarray
    * 
-   * @param $pincode Pincode of the city we want get City Info 
+   * @param $pincode
    * 
+   * @return void
    */
-	public function callApi(string $pincode,Api $obj)
+	public function callApi(string $pincode,Api $obj):void
 	{
 
      	$response=$obj->getResponseCity($pincode);
@@ -44,7 +48,7 @@ class GetCity
    * 
    */
 
-	public function parseJson(array $jsonarray)
+	public function parseJson(array $jsonarray): void
 	{
 
      	$city=$jsonarray[0]['display_name'];
