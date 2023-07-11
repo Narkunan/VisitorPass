@@ -18,9 +18,9 @@ class GetWeather
    * Call the parsejson function.
    * 
    * 
-   * @param $jsonarray
+   * @param array $jsonarray
    * 
-   * @param $city
+   * @param string $city
    * 
    */
 	public function callApi(string $city,Api $obj):void
@@ -37,17 +37,17 @@ class GetWeather
    * 
    * Call the printweather function to display appropriate output.
    * 
-   * @param $jsonarray 
+   * @param array $jsonarray.
    * 
-   * @var $feeslike 
+   * @var float $feeslike. 
    * 
-   * @var $tempmax 
+   * @var float $tempmax. 
    * 
-   * @var $tempmin
+   * @var float $tempmin.
    * 
-   * @var $WeatherDesc 
+   * @var string $WeatherDesc. 
    * 
-   * @var $windspeed 
+   * @var float $windspeed. 
    */
 
    public function parseJson(array $jsonarray):void
