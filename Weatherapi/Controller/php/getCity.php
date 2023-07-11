@@ -19,9 +19,9 @@ class GetCity
    * 
    * Call the parsejson function.
    *  
-   * @param $jsonarray.
+   * @param array $jsonarray.
    * 
-   * @param $pincode.
+   * @param string $pincode.
    * 
    * @return void.
    */
@@ -39,9 +39,9 @@ class GetCity
    * 
    * Call the printcity or pincode to print city data.
    * 
-   * @param $jsonarray .
+   * @param array $jsonarray .
    * 
-   * @var $city .
+   * @var text $city .
    * 
    */
 
