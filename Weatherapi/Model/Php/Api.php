@@ -1,16 +1,18 @@
 <?php
-
+/**
+* This class is responsible for api calls and responses
+*/
 class Api
 {
 
-	/**
-     * Get response for Pincode
+     /**
+     * Get response for Pincode.
      *
-     * @param string $city The city name.
-     * @return string The response from the API.
+     * @param string $city. 
+     * @return string $response.
      */
 
-	public function getResponsePincode(string $city): ?string
+	public function getResponsePincode(string $city):null?string
 	{
 
      	$urlres = curl_init();
@@ -44,13 +46,13 @@ class Api
 	}
 
      /**
-     * Get response for City 
+     * Get response for City.
      *
-     * @param string $city The city name.
-     * @return string The response from the API.
+     * @param string $city .
+     * @return string $response.
      */
 
-	public function getResponseCity(string $pincode): ?string
+	public function getResponseCity(string $pincode): null?string
 	{
  		
  		$urlres = curl_init();
@@ -87,8 +89,8 @@ class Api
     /**
      * Get response for Weather.
      *
-     * @param string $city The city name.
-     * @return string The response from the API.
+     * @param string $city.
+     * @return string $response.
      */
 
 	public function responseWeatherReport(string $city): ?string
