@@ -3,54 +3,55 @@ require('global.php');
 require('../../Model/php/DisplayContent.php');
 
 $city=$_GET['city'];
-
+/**
+* This class is responsible for getWeatherReport.
+*/
 
 class GetWeather
 {
 
   /**
-   * Get Response from api by calling the object of API class
+   * Get Response from api by calling the object of API class.
    * 
-   * Call the responseweatherreport() function
+   * Call the responseweatherreport() function.
    *  
-   * Call the parsejson function 
+   * Call the parsejson function.
    * 
-   * pass $json array as parameter 
    * 
-   * @param $jsonarray response from API
+   * @param $jsonarray
    * 
-   * @param $city name of the city we want weather report 
+   * @param $city
    * 
    */
-	public function callApi(string $city,Api $obj)
+	public function callApi(string $city,Api $obj):void
 	{
 
-      $response=$obj->responseWeatherReport($city);
-      $jsonarray=json_decode($response,true);
-      $this->parseJson($jsonarray);
+      	     $response=$obj->responseWeatherReport($city);
+             $jsonarray=json_decode($response,true);
+             $this->parseJson($jsonarray);
 
 	}
    
   /**
-   * Parse the json array and get required values
+   * Parse the json array and get required values.
    * 
-   * Call the printweather function to display appropriate output
+   * Call the printweather function to display appropriate output.
    * 
-   * @param $jsonarray pass the jsonarray(response)
+   * @param $jsonarray 
    * 
-   * @var $feeslike store feelslike temperature
+   * @var $feeslike 
    * 
-   * @var $tempmax store Maximum temperature
+   * @var $tempmax 
    * 
-   * @var $tempmin store Minimum temperature
+   * @var $tempmin
    * 
-   * @var $WeatherDesc store small description of weatherdescription
+   * @var $WeatherDesc 
    * 
-   * @var $windspeed store the windspeed
+   * @var $windspeed 
    */
 
-	public function parseJson(array $jsonarray)
-	{
+   public function parseJson(array $jsonarray):void
+   {
       
       $displaycontent=new DisplayContent();
       $weatherDesc = $jsonarray['weather'][0]['description'];
@@ -83,7 +84,7 @@ class GetWeather
           echo $print;
       }
 
-	}
+   }
 
 }
 
