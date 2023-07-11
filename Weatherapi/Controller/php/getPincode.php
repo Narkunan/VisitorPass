@@ -17,9 +17,9 @@ class GetPincode
    * 
    * Call the parsejson function. 
    * 
-   * @param $jsonarray.
+   * @param array $jsonarray.
    * 
-   * @param $city. 
+   * @param string $city. 
    * 
    */
     public function callApi(string $city,Api $obj):void
@@ -36,9 +36,9 @@ class GetPincode
    * 
    * Call the printcityorpincode to print city data
    * 
-   * @param $jsonarray 
+   * @param array $jsonarray 
    * 
-   * @var $city 
+   * @var text $city 
    * 
    */
     public function parseJson(array $jsonarray):void
