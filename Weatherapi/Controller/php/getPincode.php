@@ -4,26 +4,22 @@ require_once("../../Model/Php/DisplayContent.php");
 
 $city=$_GET['city'];
 /**
-* This class is responsible for getting Pincode info
+* This class is responsible for getting Pincode info.
 *
 */
 
 class GetPincode
 {
    /**
-   * Get Response from api by calling the object of API class
+   * Get Response from api by calling the object of API class.
    * 
-   * Call the getResponsePincode() function
-   *  
-   * And then
+   * Call the getResponsePincode() function.
    * 
-   * Call the parsejson function 
+   * Call the parsejson function. 
    * 
-   * pass $json  
+   * @param $jsonarray.
    * 
-   * @param $jsonarray
-   * 
-   * @param $city  
+   * @param $city. 
    * 
    */
     public function callApi(string $city,Api $obj):void
