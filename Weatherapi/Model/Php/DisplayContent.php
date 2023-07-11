@@ -1,7 +1,14 @@
 <?php
-
+/**
+* This class is responsible for display output
+*/
 class DisplayContent
 {
+	/**
+	* This fucntion will print city or pincode info.
+	*@param string $city.
+	*@return string $printstring.
+	*/
 
 	public function printCityorPincode(String $city):string
 	{
@@ -46,7 +53,15 @@ class DisplayContent
      	return $printstring;
 
 	}
-
+        /** 
+	* This function will display weather report.
+        * @param string $weatherdesc.
+	* @param float $feelsLike.
+        * @param float $tempMin.
+	* @param float $tempMax.
+        * @param float $windSpeed.
+	* @return string $printstring.
+	*/
 	public function printWeather(string $weatherDesc,string $feelsLike,string $tempMax,string $tempMin,string $imageloaction,string $windSpeed):string
 	{
 		
